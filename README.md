@@ -26,22 +26,42 @@ STEP-5: Read the characters row wise or column wise in the former order to get t
 int main()
 {
     char text[100], rail[10][100];
-    int i, j, k = 0, r = 2, len;
+    int i, j, key, len;
 
     printf("Enter text: ");
     scanf("%99s", text);
 
+    printf("Enter key: ");
+    scanf("%d", &key);
+
     len = strlen(text);
 
-    for (i = 0; i < r; i++)
+    if (key < 2 || key > 10) {
+        printf("Invalid key");
+        return 0;
+    }
+
+    for (i = 0; i < key; i++)
         for (j = 0; j < len; j++)
             rail[i][j] = '\0';
 
-    for (i = 0; i < len; i++)
-        rail[i % r][i] = text[i];
+    i = 0;
+    int row = 0, dir = 1;
+
+    for (j = 0; j < len; j++) {
+        rail[row][j] = text[j];
+
+        if (row == 0)
+            dir = 1;
+        else if (row == key - 1)
+            dir = -1;
+
+        row += dir;
+    }
 
     printf("Encrypted text: ");
-    for (i = 0; i < r; i++)
+
+    for (i = 0; i < key; i++)
         for (j = 0; j < len; j++)
             if (rail[i][j] != '\0')
                 printf("%c", rail[i][j]);
@@ -51,7 +71,8 @@ int main()
 ```
 
 # OUTPUT
-<img width="1130" height="732" alt="image" src="https://github.com/user-attachments/assets/79d37e96-daf9-401f-8d51-731da8d14f2b" />
+<img width="1123" height="752" alt="image" src="https://github.com/user-attachments/assets/8369196e-9e6a-4a71-af49-0bed4547836b" />
+
 
 
 # RESULT
